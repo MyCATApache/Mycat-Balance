@@ -1,0 +1,15 @@
+{
+	protocol : "mysql",
+	channelCacheSize : 0,
+	byteOrder : 0,
+	servers : [{
+				ip : "127.0.0.1",
+				port : 3306,
+				weight : 5,
+				props : {
+					user : "root",
+					pwd : "3455",
+					db:"talent_baseweb201"
+				}
+			}]
+}

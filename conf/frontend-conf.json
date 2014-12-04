@@ -1,0 +1,8 @@
+{
+
+	bindIp : "127.0.0.1",
+	bindPort : 9898,
+	byteOrder: 0,
+	protocol : "balance-fronted",
+
+}

@@ -1,0 +1,194 @@
+<!-- <configuration scan="true" scanPeriod="10 seconds" debug="true"> -->
+<configuration scan="true" scanPeriod="10 seconds" debug="false">
+	
+	<property name="maxFileSize" value="20MB" />
+	<property name="conversionPattern" value="%n%-5level %d %thread %logger{35}[%line]: %n%m%n" />  <!-- %n%-5level %d %thread %logger{35}[%line]: %n%m%n -->
+	
+	<property name="logRootDir" value="f:/talent-nio-log" />                                   <!-- 配根目录 -->
+	<property name="rootFileName" value="third-logback" />                          <!-- 非本项目的日志文件名 -->
+	<property name="appFileName" value="talent-baseweb" />                           <!-- 本项目的日志文件名 -->
+	<property name="httpJsonFileName" value="talent-baseweb-http-json" />            <!-- http+json的日志文件名 -->
+	<property name="httpXmlFileName" value="talent-baseweb-http-xml" />              <!-- http+xml的日志文件名 -->
+	<property name="webserviceFileName" value="talent-baseweb-webservice" />         <!-- webservice的日志文件名 -->
+	
+	<property name="appPackage" value="com.talent.nio" />                        <!-- 不用修改 -->
+	
+	<property name="rootLevel" value="warn" />                                      <!-- 非本项目的日志级别 -->
+	<property name="appLevel" value="warn" />                                      <!-- 本项目的日志级别 -->
+	
+	<contextName>platform-base</contextName>                                   <!-- 本项目的名字 -->
+
+	<!-- root file 日志打印到文件中 -->
+	<appender name="root-file"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logRootDir}/${rootFileName}.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>${logRootDir}/${rootFileName}.%i.log.zip</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>100</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>${maxFileSize}</maxFileSize>
+		</triggeringPolicy>
+		<encoder>
+			<pattern>${conversionPattern}</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- app file 日志打印到文件中 -->
+	<appender name="app-file"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logRootDir}/${appFileName}.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>${logRootDir}/${appFileName}.%i.log.zip</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>100</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>${maxFileSize}</maxFileSize>
+		</triggeringPolicy>
+		<encoder>
+			<pattern>${conversionPattern}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- console config -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 
+			by default -->
+		<encoder charset="UTF-8">
+			<pattern>${conversionPattern}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- httpjson file 日志打印到文件中 -->
+	<appender name="http-json-file"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logRootDir}/${httpJsonFileName}.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>${logRootDir}/${httpJsonFileName}.%i.log.zip</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>100</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>${maxFileSize}</maxFileSize>
+		</triggeringPolicy>
+		<encoder>
+			<pattern>${conversionPattern}</pattern>
+		</encoder>
+	</appender>
+	<logger name="httpJsonLog" level="${appLevel}" additivity="false">
+		<appender-ref ref="http-json-file" />
+	</logger>
+	
+	<!-- httpxml file 日志打印到文件中 -->
+	<appender name="http-xml-file"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logRootDir}/${httpXmlFileName}.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>${logRootDir}/${httpXmlFileName}.%i.log.zip</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>100</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>${maxFileSize}</maxFileSize>
+		</triggeringPolicy>
+		<encoder>
+			<pattern>${conversionPattern}</pattern>
+		</encoder>
+	</appender>
+	<logger name="httpXmlLog" level="${appLevel}" additivity="false">
+		<appender-ref ref="http-xml-file" />
+	</logger>
+	
+	<!-- webservice file 日志打印到文件中 -->
+	<appender name="webservice-file"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logRootDir}/${webserviceFileName}.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>${logRootDir}/${webserviceFileName}.%i.log.zip</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>100</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>${maxFileSize}</maxFileSize>
+		</triggeringPolicy>
+		<encoder>
+			<pattern>${conversionPattern}</pattern>
+		</encoder>
+	</appender>
+	<logger name="webserviceLog" level="${appLevel}" additivity="false">
+		<appender-ref ref="webservice-file" />
+	</logger>
+	
+	
+	<!-- ftp log service file -->
+	<appender name="ftpLogService-file"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logRootDir}/ftplog/service.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logRootDir}/ftplog/service/service.%d{yyyy-MM-dd_HH-mm}.log</fileNamePattern>  
+			<maxHistory>30</maxHistory>     
+		</rollingPolicy>
+		<encoder>    
+			<pattern>%m%n</pattern>
+		</encoder>  
+	</appender>
+	<logger name="ftpLogServiceLog" level="debug" additivity="false">
+		<appender-ref ref="ftpLogService-file" />
+	</logger>
+	
+	<!-- ftp log bind file -->
+	<appender name="ftpLogBind-file"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logRootDir}/ftplog/bind.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logRootDir}/ftplog/bind/bind.%d{yyyy-MM-dd_HH-mm}.log</fileNamePattern>  
+			<maxHistory>30</maxHistory>     
+		</rollingPolicy>
+		<encoder>    
+			<pattern>%m%n</pattern>
+		</encoder>  
+	</appender>
+	<logger name="ftpLogBindLog" level="debug" additivity="false">
+		<appender-ref ref="ftpLogBind-file" />
+	</logger>
+	
+	<!-- session log -->
+	<appender name="SIFT" class="ch.qos.logback.classic.sift.SiftingAppender">
+		<discriminator>
+			<Key>username</Key>
+			<DefaultValue>default</DefaultValue>
+		</discriminator>
+		<sift>
+			<appender name="FILE-${username}" class="ch.qos.logback.core.FileAppender">
+				<file>${file}</file>
+				<append>true</append>
+				<encoding>UTF-8</encoding>
+				<bufferedIO>true</bufferedIO>
+				<immediateFlush>true</immediateFlush>
+				<layout class="ch.qos.logback.classic.PatternLayout">
+					<pattern>${conversionPattern}</pattern>
+				</layout>
+			</appender>
+		</sift>
+	</appender>
+	
+	<!-- root config -->
+	<root level="${rootLevel}">
+		<appender-ref ref="root-file" />
+		<appender-ref ref="console" />
+	</root>
+	
+	<!-- app config --> 
+	<logger name="${appPackage}" level="${appLevel}" additivity="false">
+		<appender-ref ref="app-file" />
+		<appender-ref ref="console" />
+	</logger>
+	
+</configuration>

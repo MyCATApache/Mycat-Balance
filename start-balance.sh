@@ -1,0 +1,1 @@
+java -cp mycat-balance-1.0.0.jar com.talent.balance.startup.BalanceStartup
